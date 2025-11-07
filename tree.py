@@ -319,7 +319,18 @@ def create_plot(my_tree):
 
     plt.tight_layout()
     plt.show()
-
+def classify(input_tree, feat_labels, test_vec):
+    first_str = next(iter(input_tree))  # 取出根节点的特征
+    second_dict = input_tree[first_str]
+    feat_index = feat_labels.index(first_str)  # 找到该特征在标签列表中的索引
+    for key in second_dict:
+        if test_vec[feat_index] == key:
+            if isinstance(second_dict[key], dict):
+                # 若子节点是字典，递归预测
+                return classify(second_dict[key], feat_labels, test_vec)
+            else:
+                # 若子节点是类别，直接返回
+                return second_dict[key]
 # ========== 运行：建树 + 绘图 ==========
 # 示例数据集：天气与打球 (Play Tennis)
 lenses_data = [
@@ -356,6 +367,21 @@ labels = ['age','prescription', 'astigmatic', 'tear_rate']
 #tree = creat_tree(weather_data, labels[:])  # 注意传入拷贝 labels[:]
 tree = creat_tree(lenses_data, labels[:]) 
 create_plot(tree)
+# ========== 计算训练集准确率 ==========
+def calculate_accuracy(tree, feat_labels, dataset):
+    correct_count = 0
+    total_count = len(dataset)
+    for sample in dataset:
+        true_label = sample[-1]  # 真实标签（样本最后一列）
+        predict_label = classify(tree, feat_labels, sample[:-1])  # 用前n-1列特征做预测
+        if predict_label == true_label:
+            correct_count += 1
+    accuracy = correct_count / total_count
+    return accuracy
+
+# 调用函数计算并打印
+accuracy = calculate_accuracy(tree, labels, lenses_data)
+print(f"训练集准确率：{accuracy:.2%}")
 #1212
 
 # # 文件路径
