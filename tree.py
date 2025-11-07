@@ -322,26 +322,44 @@ def create_plot(my_tree):
 
 # ========== 运行：建树 + 绘图 ==========
 # 示例数据集：天气与打球 (Play Tennis)
-weather_data = [
-    ['Sunny', 'Hot', 'High', False, 'No'],
-    ['Sunny', 'Hot', 'High', True, 'No'],
-    ['Overcast', 'Hot', 'High', False, 'Yes'],
-    ['Rain', 'Mild', 'High', False, 'Yes'],
-    ['Rain', 'Cool', 'Normal', False, 'Yes'],
-    ['Rain', 'Cool', 'Normal', True, 'No'],
-    ['Overcast', 'Cool', 'Normal', True, 'Yes'],
-    ['Sunny', 'Mild', 'High', False, 'No'],
-    ['Sunny', 'Cool', 'Normal', False, 'Yes'],
-    ['Rain', 'Mild', 'Normal', False, 'Yes'],
-    ['Sunny', 'Mild', 'Normal', True, 'Yes'],
-    ['Overcast', 'Mild', 'High', True, 'Yes'],
-    ['Overcast', 'Hot', 'Normal', False, 'Yes'],
-    ['Rain', 'Mild', 'High', True, 'No']
+lenses_data = [
+    ["young", "myope", "no", "reduced", "no lenses"],
+    ["young", "myope", "no", "normal", "soft"],
+    ["young", "myope", "yes", "reduced", "no lenses"],
+    ["young", "myope", "yes", "normal", "hard"],
+    ["young", "hyper", "no", "reduced", "no lenses"],
+    ["young", "hyper", "no", "normal", "soft"],
+    ["young", "hyper", "yes", "reduced", "no lenses"],
+    ["young", "hyper", "yes", "normal", "hard"],
+    ["pre", "myope", "no", "reduced", "no lenses"],
+    ["pre", "myope", "no", "normal", "soft"],
+    ["pre", "myope", "yes", "reduced", "no lenses"],
+    ["pre", "myope", "yes", "normal", "hard"],
+    ["pre", "hyper", "no", "reduced", "no lenses"],
+    ["pre", "hyper", "no", "normal", "soft"],
+    ["pre", "hyper", "yes", "reduced", "no lenses"],
+    ["pre", "hyper", "yes", "normal", "no lenses"],
+    ["presbyopic", "myope", "no", "reduced", "no lenses"],
+    ["presbyopic", "myope", "no", "normal", "no lenses"],
+    ["presbyopic", "myope", "yes", "reduced", "no lenses"],
+    ["presbyopic", "myope", "yes", "normal", "hard"],
+    ["presbyopic", "hyper", "no", "reduced", "no lenses"],
+    ["presbyopic", "hyper", "no", "normal", "soft"],
+    ["presbyopic", "hyper", "yes", "reduced", "no lenses"],
+    ["presbyopic", "hyper", "yes", "normal", "no lenses"]
 ]
 
 # 特征标签
-labels = ['Outlook', 'Temperature', 'Humidity', 'Windy']
-
+#labels = ['Outlook', 'Temperature', 'Humidity', 'Windy']
+labels = ['age','prescription', 'astigmatic', 'tear_rate']
 # 生成决策树
-tree = creat_tree(weather_data, labels[:])  # 注意传入拷贝 labels[:]
+#tree = creat_tree(weather_data, labels[:])  # 注意传入拷贝 labels[:]
+tree = creat_tree(lenses_data, labels[:]) 
 create_plot(tree)
+#1212
+
+# # 文件路径
+
+
+#fr=open(lenses_data)
+#print(fr)
