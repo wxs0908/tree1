@@ -164,12 +164,15 @@ def majority_cnt(class_list):
     sorted_class_count=sorted(class_count.items(),key=operator.itemgetter(1),reverse=True)
     return sorted_class_count
 
-def creat_tree(dataset,labels):
+def creat_tree(dataset,labels,max_depth=3,current_depth=1):
     # 取出数据集中每条样本的“标签列”（通常是最后一列）
+    
     class_list=[example[-1] for example in dataset]
     # 递归出口①：若所有样本同类，直接返回该类
     if class_list.count(class_list[0])==len(class_list):
         return class_list[0]
+    if current_depth>=max_depth:
+        return majority_cnt(class_list)
     # 递归出口②：若没有可用特征（只剩标签列），返回多数类
     # dataset[0] 的长度 = 特征数 + 1（标签列）
     if len(dataset[0])==1:
@@ -365,7 +368,7 @@ lenses_data = [
 labels = ['age','prescription', 'astigmatic', 'tear_rate']
 # 生成决策树
 #tree = creat_tree(weather_data, labels[:])  # 注意传入拷贝 labels[:]
-tree = creat_tree(lenses_data, labels[:]) 
+tree = creat_tree(lenses_data, labels[:],max_depth=2) 
 create_plot(tree)
 # ========== 计算训练集准确率 ==========
 def calculate_accuracy(tree, feat_labels, dataset):
